@@ -1,17 +1,25 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
 
-const HomeScreen = ({ navigation }) => {
-  const handlePress = () => {
-    Alert.alert('Bouton cliqué');
-    };
-
+const HomeScreen = ({ posts, navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Acceuil</Text>
+      <Text style={styles.title}>Fil d'actualité</Text>
 
-      <Button title="Change de page" 
-      onPress={() => navigation.navigate('Page 2')} />
+      <FlatList
+        data={posts}
+        keyExtractor={(item, index) => index.toString()} 
+        renderItem={({ item }) => (
+          <View style={styles.post}>
+            <Text style={styles.postText}>{item}</Text>
+          </View>
+        )}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>Aucun post</Text>
+        }
+      />
+
+      <Button title="Créer un post" onPress={() => navigation.navigate('SecondScreen')} />
     </View>
   );
 };
@@ -19,12 +27,28 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 20,
   },
-  text: {
-    fontSize: 18,
-    marginBottom: 20, 
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  post: {
+    padding: 15,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  postText: {
+    fontSize: 16,
+  },
+  emptyText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: 'gray',
+    marginTop: 20,
   },
 });
 

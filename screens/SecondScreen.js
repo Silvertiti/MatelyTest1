@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
-const HomeScreen = () => {
-  const [text, setText] = useState('');
+const SecondScreen = ({ navigation, addPost }) => {
+  const [text, setText] = useState(''); 
+
+  const handlePost = () => {
+    if (text.trim()) {
+      addPost(text); 
+      setText(''); 
+      navigation.goBack(); 
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Entrez votre texte :</Text>
+      <Text style={styles.label}>Créer un post</Text>
 
       <TextInput
         style={styles.input}
-        placeholder="Tapez ici..."
+        placeholder="Tape ton message ici"
         multiline={true}
         value={text}
         onChangeText={(newText) => setText(newText)}
       />
-      <TouchableOpacity style={styles.button} onPress={() => console.log('Texte posté')}>
+
+      <TouchableOpacity style={styles.button} onPress={handlePost}>
         <Text style={styles.buttonText}>Poster</Text>
       </TouchableOpacity>
     </View>
@@ -25,37 +34,35 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
     padding: 20,
+    justifyContent: 'flex-start',
   },
   label: {
     fontSize: 18,
     marginBottom: 10,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   input: {
     height: 100,
-    width: 380,
     borderColor: 'gray',
     borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
     marginBottom: 20,
     textAlignVertical: 'top',
-    padding: 10,
-    borderRadius: 5,
   },
   button: {
-    width: 380,
-    height: 50,
     backgroundColor: 'blue',
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 15,
     borderRadius: 5,
+    alignItems: 'center',
   },
   buttonText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
 
-export default HomeScreen;
+export default SecondScreen;
