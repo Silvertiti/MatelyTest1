@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 const ThirdScreen = ({ route, navigation }) => {
-  const { post, index, updatePost } = route.params; // Récupère le texte du post et l'index
-  const [text, setText] = useState(post); // Initialise avec le texte du post
-
+  const { post, index, updatePost } = route.params; 
+  const [text, setText] = useState(post); 
   const handleUpdate = () => {
     if (text.trim()) {
-      updatePost(index, text); // Met à jour le post
-      navigation.goBack(); // Retourne à HomeScreen
+      updatePost(index, text); 
+      navigation.goBack(); 
     }
   };
 
@@ -20,7 +19,7 @@ const ThirdScreen = ({ route, navigation }) => {
         style={styles.input}
         placeholder="Modifier votre post..."
         multiline={true}
-        value={text} // Texte prérempli
+        value={text} 
         onChangeText={(newText) => setText(newText)}
       />
 

@@ -14,6 +14,17 @@ const HomeScreen = ({ posts, setPosts, updatePost, navigation }) => {
             <Text style={styles.postText}>{item}</Text>
 
             <View style={styles.buttonContainer}>
+              {/* Bouton Supprimer */}
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => {
+                  const updatedPosts = posts.filter((_, i) => i !== index); // Supprime le post
+                  setPosts(updatedPosts); // Met à jour la liste
+                }}
+              >
+                <Text style={styles.deleteButtonText}>Supprimer</Text>
+              </TouchableOpacity>
+
               {/* Bouton Modifier */}
               <TouchableOpacity
                 style={styles.editButton}
@@ -26,17 +37,6 @@ const HomeScreen = ({ posts, setPosts, updatePost, navigation }) => {
                 }
               >
                 <Text style={styles.editButtonText}>Modifier</Text>
-              </TouchableOpacity>
-
-              {/* Bouton Supprimer */}
-              <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={() => {
-                  const updatedPosts = posts.filter((_, i) => i !== index); // Supprime le post
-                  setPosts(updatedPosts); // Met à jour la liste
-                }}
-              >
-                <Text style={styles.deleteButtonText}>Supprimer</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -74,18 +74,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // Place les boutons côte à côte
     justifyContent: 'space-between', // Espacement entre les boutons
   },
-  editButton: {
-    backgroundColor: 'green',
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-  },
-  editButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   deleteButton: {
     backgroundColor: 'red',
     paddingVertical: 8,
@@ -93,6 +81,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   deleteButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  editButton: {
+    backgroundColor: 'green',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+  },
+  editButtonText: {
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',

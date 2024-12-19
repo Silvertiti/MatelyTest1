@@ -8,7 +8,7 @@ import ThirdScreen from './screens/ThirdScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [posts, setPosts] = useState([]); // Gestion globale des posts
+  const [posts, setPosts] = useState([]); 
 
   const updatePost = (index, newText) => {
     const updatedPosts = [...posts];
