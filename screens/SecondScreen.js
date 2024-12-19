@@ -1,41 +1,61 @@
-import React, {useState} from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
-const DetailsScreen = ({ navigation }) => {
-    const [text, setText] = useState(''); 
+const HomeScreen = () => {
+  const [text, setText] = useState('');
 
-    return (
-        <View style={styles.container}>
-        <Text style={styles.text}>Nouveau Poste</Text>
-        <TextInput
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>Entrez votre texte :</Text>
+
+      <TextInput
         style={styles.input}
-        placeholder='Entrez votre texte'
+        placeholder="Tapez ici..."
+        multiline={true}
         value={text}
         onChangeText={(newText) => setText(newText)}
-            />
-        </View>
-    );
+      />
+      <TouchableOpacity style={styles.button} onPress={() => console.log('Texte posté')}>
+        <Text style={styles.buttonText}>Poster</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        paddingTop: 20,
-    },
-    text: {
-        fontSize: 18,
-        marginBottom: 10,
-    },
-    input: {
-        height: 30,
-        width: 200,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 20,
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 20,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  input: {
+    height: 100,
+    width: 380,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    textAlignVertical: 'top',
+    padding: 10,
+    borderRadius: 5,
+  },
+  button: {
+    width: 380,
+    height: 50,
+    backgroundColor: 'blue',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });
 
-export default DetailsScreen;
+export default HomeScreen;
