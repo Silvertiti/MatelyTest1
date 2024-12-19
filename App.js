@@ -7,20 +7,16 @@ import SecondScreen from './screens/SecondScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [posts, setPosts] = useState([]); 
-
-  const addPost = (newPost) => {
-    setPosts([newPost, ...posts]); 
-  };
+  const [posts, setPosts] = useState([]);
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="HomeScreen">
-          {(props) => <HomeScreen {...props} posts={posts} />}
+          {(props) => <HomeScreen {...props} posts={posts} setPosts={setPosts} />}
         </Stack.Screen>
         <Stack.Screen name="SecondScreen">
-          {(props) => <SecondScreen {...props} addPost={addPost} />}
+          {(props) => <SecondScreen {...props} addPost={(newPost) => setPosts([newPost, ...posts])} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
