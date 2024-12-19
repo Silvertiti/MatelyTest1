@@ -1,10 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 
 const HomeScreen = () => {
+  const handlePress = () => {
+    Alert.alert('Bouton cliqué');
+    };
+
   return (
     <View style={styles.container}>
-      <Text>Welcome to the Home Screen!</Text>
+      <Text style={styles.text}>Acceuil</Text>
+
+      <Button title="Cliquez ici" onPress={handlePress} />
     </View>
   );
 };
@@ -12,8 +18,12 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'Top',
+    justifyContent: 'center',
     alignItems: 'center',
+  },
+  text: {
+    fontSize: 18,
+    marginBottom: 20, 
   },
 });
 
