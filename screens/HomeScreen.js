@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Button } from 'react-native';
 
-const HomeScreen = ({ posts, setPosts, navigation }) => {
+const HomeScreen = ({ posts, setPosts, updatePost, navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Fil d'actualité</Text>
@@ -13,34 +13,39 @@ const HomeScreen = ({ posts, setPosts, navigation }) => {
           <View style={styles.post}>
             <Text style={styles.postText}>{item}</Text>
 
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={() => {
-                const updatedPosts = posts.filter((_, i) => i !== index); 
-                setPosts(updatedPosts); 
-              }}
-            >
-              <Text style={styles.deleteButtonText}>Supprimer</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              {/* Bouton Modifier */}
+              <TouchableOpacity
+                style={styles.editButton}
+                onPress={() =>
+                  navigation.navigate('ThirdScreen', {
+                    post: item,         // Contenu du post
+                    index,              // Index du post
+                    updatePost,         // Fonction pour mettre à jour
+                  })
+                }
+              >
+                <Text style={styles.editButtonText}>Modifier</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.extraButton}
-              onPress={() => {
-                console.log(`Action pour le post : ${item}`);
-              }}
-            >
-              <Text style={styles.extraButtonText}>Modifier</Text>
-            </TouchableOpacity>
+              {/* Bouton Supprimer */}
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => {
+                  const updatedPosts = posts.filter((_, i) => i !== index); // Supprime le post
+                  setPosts(updatedPosts); // Met à jour la liste
+                }}
+              >
+                <Text style={styles.deleteButtonText}>Supprimer</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
-        ListEmptyComponent={
-          <Text style={styles.emptyText}>Aucun post</Text>
-        }
+        ListEmptyComponent={<Text style={styles.emptyText}>Aucun post</Text>}
       />
 
       <Button title="Créer un post" onPress={() => navigation.navigate('SecondScreen')} />
     </View>
-
   );
 };
 
@@ -63,28 +68,31 @@ const styles = StyleSheet.create({
   },
   postText: {
     fontSize: 16,
-    marginBottom: 10, 
+    marginBottom: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row', // Place les boutons côte à côte
+    justifyContent: 'space-between', // Espacement entre les boutons
+  },
+  editButton: {
+    backgroundColor: 'green',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+  },
+  editButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   deleteButton: {
     backgroundColor: 'red',
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 5,
-    marginBottom: 10, 
   },
   deleteButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  extraButton: {
-    backgroundColor: 'blue',
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-  },
-  extraButtonText: {
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',

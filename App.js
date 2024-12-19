@@ -3,20 +3,30 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './screens/HomeScreen';
 import SecondScreen from './screens/SecondScreen';
+import ThirdScreen from './screens/ThirdScreen';
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); // Gestion globale des posts
+
+  const updatePost = (index, newText) => {
+    const updatedPosts = [...posts];
+    updatedPosts[index] = newText;
+    setPosts(updatedPosts);
+  };
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="HomeScreen">
-          {(props) => <HomeScreen {...props} posts={posts} setPosts={setPosts} />}
+          {(props) => <HomeScreen {...props} posts={posts} setPosts={setPosts} updatePost={updatePost} />}
         </Stack.Screen>
         <Stack.Screen name="SecondScreen">
           {(props) => <SecondScreen {...props} addPost={(newPost) => setPosts([newPost, ...posts])} />}
+        </Stack.Screen>
+        <Stack.Screen name="ThirdScreen">
+          {(props) => <ThirdScreen {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
