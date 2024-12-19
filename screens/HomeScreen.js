@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const handlePress = () => {
     Alert.alert('Bouton cliqué');
     };
@@ -10,7 +10,8 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <Text style={styles.text}>Acceuil</Text>
 
-      <Button title="Cliquez ici" onPress={handlePress} />
+      <Button title="Change de page" 
+      onPress={() => navigation.navigate('Page 2')} />
     </View>
   );
 };
