@@ -9,10 +9,12 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const [posts, setPosts] = useState([]); 
-
-  const updatePost = (index, newText) => {
+  const addPost = (postData) => {
+    setPosts([postData, ...posts]); 
+  };
+  const updatePost = (index, postData) => {
     const updatedPosts = [...posts];
-    updatedPosts[index] = newText;
+    updatedPosts[index] = postData;
     setPosts(updatedPosts);
   };
 
@@ -20,13 +22,20 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="HomeScreen">
-          {(props) => <HomeScreen {...props} posts={posts} setPosts={setPosts} updatePost={updatePost} />}
+          {(props) => (
+            <HomeScreen
+              {...props}
+              posts={posts}
+              setPosts={setPosts}
+              updatePost={updatePost}
+            />
+          )}
         </Stack.Screen>
         <Stack.Screen name="SecondScreen">
-          {(props) => <SecondScreen {...props} addPost={(newPost) => setPosts([newPost, ...posts])} />}
+          {(props) => <SecondScreen {...props} addPost={addPost} />}
         </Stack.Screen>
         <Stack.Screen name="ThirdScreen">
-          {(props) => <ThirdScreen {...props} />}
+          {(props) => <ThirdScreen {...props} updatePost={updatePost} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

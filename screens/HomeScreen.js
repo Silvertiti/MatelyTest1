@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Button, Image } from 'react-native';
 
 const HomeScreen = ({ posts, setPosts, updatePost, navigation }) => {
   return (
@@ -11,28 +11,28 @@ const HomeScreen = ({ posts, setPosts, updatePost, navigation }) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <View style={styles.post}>
-            <Text style={styles.postText}>{item}</Text>
+            <Text style={styles.postText}>{item.text}</Text>
+
+            {item.image && <Image source={{ uri: item.image }} style={styles.postImage} />}
 
             <View style={styles.buttonContainer}>
-              {/* Bouton Supprimer */}
               <TouchableOpacity
                 style={styles.deleteButton}
                 onPress={() => {
-                  const updatedPosts = posts.filter((_, i) => i !== index); // Supprime le post
-                  setPosts(updatedPosts); // Met à jour la liste
+                  const updatedPosts = posts.filter((_, i) => i !== index);
+                  setPosts(updatedPosts); 
                 }}
               >
                 <Text style={styles.deleteButtonText}>Supprimer</Text>
               </TouchableOpacity>
 
-              {/* Bouton Modifier */}
               <TouchableOpacity
                 style={styles.editButton}
                 onPress={() =>
                   navigation.navigate('ThirdScreen', {
-                    post: item,         // Contenu du post
-                    index,              // Index du post
-                    updatePost,         // Fonction pour mettre à jour
+                    post: item,
+                    index,
+                    updatePost, 
                   })
                 }
               >
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonContainer: {
-    flexDirection: 'row', // Place les boutons côte à côte
-    justifyContent: 'space-between', // Espacement entre les boutons
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   deleteButton: {
     backgroundColor: 'red',
@@ -98,11 +98,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  emptyText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: 'gray',
-    marginTop: 20,
+  postImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 10,
+    marginTop: 10,
   },
 });
 
